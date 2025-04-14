@@ -1,0 +1,8 @@
+{
+    // настройки строгости
+    "extends": "./tsconfig-checks.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "moduleResolution": "node16"      // все остальные настройки
+    }
+  }
