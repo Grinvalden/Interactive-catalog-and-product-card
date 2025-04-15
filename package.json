@@ -30,7 +30,7 @@
   "name": "interactive-catalog-and-product-card",
   "version": "1.0.0",
   "description": "",
-  "main": "index.tsx",
+  "main": "./src/index.tsx",
   "dependencies": {
     "acorn": "^8.14.1",
     "ajv": "^8.17.1",
@@ -84,7 +84,7 @@
     "webpack-sources": "^3.2.3"
   },
   "scripts": {
-    "build": "NODE_ENV='production' webpack",
+    "build": "webpack",
     "start": "webpack serve --mode development --hot --open"
   },
   "keywords": [],

@@ -1,4 +1,11 @@
-export async function fetchProducts() {
+export interface Product {
+    id: string;
+    name: string;
+    basePrice: number;
+    imageUrl: string;
+}
+
+export async function fetchProducts(): Promise<Product[]> {
     return new Promise ((resolve) => {
         setTimeout(() => {
             resolve([

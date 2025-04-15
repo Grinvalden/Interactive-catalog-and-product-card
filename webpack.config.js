@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-    entry: './src/api/index.tsx', // Точка входа
+    entry: './src/index.tsx', // Точка входа
     module: {
         rules: [
             { test: /\.svg$/, use: 'svg-inline-loader' }, // Обработка SVG
