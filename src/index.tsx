@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./api/App";
+import App from "./App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = createRoot(document.getElementById("root")!);
@@ -27,7 +27,7 @@ declare const module: {
 
 if (module.hot) {
     console.log("HMR is enabled");
-    module.hot.accept("./api/App", () => {
+    module.hot.accept("./App", () => {
         console.log("HMR: Accepting updated module...");
         render();
     });
