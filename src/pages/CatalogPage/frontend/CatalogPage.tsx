@@ -1,14 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from 'react-router';
-import { fetchProducts } from "../backend/fetchProducts";
-
-interface Product {
-    id: string;
-    name: string;
-    price: number;
-    imageUrl: string;
-}
+import { fetchProducts } from "../../../api/CatalogPage/fetchProducts";
+import { Product } from "../../../api/CatalogPage/fetchProducts";
 
 
 interface ProductListItemProps {
@@ -22,14 +16,14 @@ const ProductListItem: React.FC<ProductListItemProps> = ({ product }) => {
             <div style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
                 <img src={product.imageUrl} alt={product.name} style={{ width: "100px", height: "100px" }} />
                 <h3>{product.name}</h3>
-                <p>Цена: {product.price} ₽</p>
+                <p>Цена: {product.basePrice} ₽</p>
             </div>
         </Link>
     );
 };
 
 const CatalogPage: React.FC = () => {
-    const { data, isLoading, isError, isSuccess } = useQuery<Product[]>({
+    const { data, isLoading, isError, isSuccess } = useQuery<Product[], Error>({
         queryKey: ["products"],
         queryFn: fetchProducts,
     });
@@ -47,7 +41,7 @@ const CatalogPage: React.FC = () => {
             <h1>Каталог товаров</h1>
             {isSuccess && (
                 <div>
-                    {data.map((product: Product) => (
+                    {(Array.isArray(data) ? data : [data] as Product[]).map((product: Product) => (
                         <ProductListItem key={product.id} product={product} />
                     ))}
                 </div>
