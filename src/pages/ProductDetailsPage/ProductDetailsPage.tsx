@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { fetchProduct } from "../../api/ProductDetailPage/fetchProducts";
-import type Product from "../../api/ProductDetailPage/fetchProducts";
+import { fetchProduct } from "../../api/ProductDetailPage/fetchProduct";
+import type Product from "../../api/ProductDetailPage/fetchProduct";
 import ProductInfo from "../../components/ProductInfo/ProductInfo";
 
 const ProductDetailsPage: React.FC = () => {
