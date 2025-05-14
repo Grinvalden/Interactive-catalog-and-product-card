@@ -1,59 +1,42 @@
-import { useQuery} from "@tanstack/react-query";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { fetchProduct } from "../../api/ProductDetailPage/fetchProduct";
-import { fetchProductOptions } from "../../api/ProductDetailPage/fetchProductOptions";
-import { Provider } from "react-redux";
-import { store } from "../../redux/store";
+import { fetchProduct } from "../../api/ProductDetailPage/fetchProducts";
+import type Product from "../../api/ProductDetailPage/fetchProducts";
+import ProductInfo from "../../components/ProductInfo/ProductInfo";
 
-interface Product {
-    id: string;
-    name: string;
-    basePrice: number;
-    imageUrl: string;
-    description?: string;
-}
-
-interface ProductOption {
-    id: string;
-    name: string;
-    priceModifier: number;
-}
-
-const  ProductDetailsPage: React.FC = () => {
+const ProductDetailsPage: React.FC = () => {
     const { productId } = useParams<{ productId: string }>();
 
-    const { data: product, isLoading: isProductLoading, isError: isProductError } = useQuery<Product>(
-        { queryKey: ["product", productId], queryFn: () => fetchProduct(productId!) }
+    const { data: product, isLoading, isError } = useQuery<Product>(
+        { queryKey: ["product", productId], queryFn: ({ queryKey }) => fetchProduct(queryKey[1] as string) }
     );
 
-    const { data: productOptions, isLoading: isOptionsLoading, isError: isOptionsError } = useQuery<{
-        colors: ProductOption[];
-        sizes: ProductOption[];
-    }>(
-        { queryKey: ["productOptions", productId], queryFn: () => fetchProductOptions(productId!) }
-    );
+    useEffect(() => {
+        console.log("Product ID:", productId);
+        console.log("Product Data:", product);
+        console.log("Is Loading:", isLoading);
+        console.log("Is Error:", isError);
+    }, [productId, product, isLoading, isError]);
 
-    if (isProductLoading || isOptionsLoading) {
+    if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (isProductError || isOptionsError) {
+    if (isError || !product) {
         return <div>Error loading product details.</div>;
     }
 
-    if (!product || !productOptions) {
-        return <div>No product details available.</div>;
-    }
-
     return (
-        <Provider store={store}>
         <div>
-        
+            <ProductInfo 
+                imageUrl={product.imageUrl} 
+                name={product.name} 
+                description={product.description} 
+            />
         </div>
-        </Provider>
     );
-}
+};
 
 export default ProductDetailsPage;
 
