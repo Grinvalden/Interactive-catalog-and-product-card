@@ -41,7 +41,7 @@ const CatalogPage: React.FC = () => {
             <h1>Каталог товаров</h1>
             {isSuccess && (
                 <div>
-                    {(Array.isArray(data) ? data : [data] as Product[]).map((product: Product) => (
+                    {data.map((product: Product) => (
                         <ProductListItem key={product.id} product={product} />
                     ))}
                 </div>
